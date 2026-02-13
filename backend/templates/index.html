@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Guestbook</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width:800px; margin:24px auto; padding:0 12px; }
+    input, textarea { width:100%; padding:8px; margin:6px 0; }
+    button { padding:8px 12px; }
+    .entry { border-bottom:1px solid #ddd; padding:8px 0; }
+  </style>
+</head>
+<body>
+  <h1>Guestbook</h1>
+  <form id="entryForm">
+    <input id="name" placeholder="Your name" required />
+    <textarea id="message" placeholder="Leave a message" required></textarea>
+    <button type="submit">Sign Guestbook</button>
+  </form>
+  <div id="status"></div>
+  <hr />
+  <div id="entries">Loading...</div>
+
+  <script>
+    const API = '/guestbook';
+    const entriesEl = document.getElementById('entries');
+    const statusEl = document.getElementById('status');
+
+    async function fetchEntries(){
+      entriesEl.textContent = 'Loading...';
+      try{
+        const res = await fetch(API);
+        if(!res.ok) throw new Error('Network error');
+        const data = await res.json();
+        renderEntries(data);
+      }catch(err){
+        entriesEl.textContent = 'Failed to load entries.';
+        console.error(err);
+      }
+    }
+
+    function renderEntries(items){
+      if(!items || items.length === 0){
+        entriesEl.innerHTML = '<p>No entries yet.</p>';
+        return;
+      }
+      entriesEl.innerHTML = items.map(it => `\n        <div class="entry">\n          <strong>${escapeHtml(it.name || 'Anonymous')}</strong> <small>• ${new Date(it.created_at).toLocaleString()}</small>\n          <p>${escapeHtml(it.message || '')}</p>\n        </div>\n      `).join('');
+    }
+
+    function escapeHtml(s){
+      return (s||'').toString().replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c]));
+    }
+
+    document.getElementById('entryForm').addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const message = document.getElementById('message').value.trim();
+      if(!message) return;
+      statusEl.textContent = 'Saving...';
+      try{
+        const res = await fetch(API, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ name, message })
+        });
+        if(!res.ok) throw new Error('Save failed');
+        document.getElementById('name').value = '';
+        document.getElementById('message').value = '';
+        statusEl.textContent = 'Saved.';
+        fetchEntries();
+      }catch(err){
+        statusEl.textContent = 'Failed to save.';
+        console.error(err);
+      }
+    });
+
+    window.addEventListener('load', fetchEntries);
+  </script>
+</body>
+</html>
