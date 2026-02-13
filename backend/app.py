@@ -1,5 +1,5 @@
 import os
-from flask import Flask, request, jsonify, redirect
+from flask import Flask, request, jsonify
 from flask_cors import CORS
 from supabase import create_client, Client
 
@@ -31,12 +31,6 @@ def update_entry(id):
 def delete_entry(id):
     supabase.table("guestbook").delete().eq("id", id).execute()
     return jsonify({"message": "Deleted successfully"}), 200
-
-
-@app.route('/', methods=['GET'])
-def index():
-    # Serve a simple frontend page that interacts with the guestbook API
-    return render_template('index.html')
 
 if __name__ == '__main__':
     # Use the PORT variable provided by Render, default to 5000 for local dev
