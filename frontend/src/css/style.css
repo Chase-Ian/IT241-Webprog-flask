@@ -838,3 +838,11 @@ img {
   display: flex;
   z-index: 9999;
 }
+
+.loading-bar-fill {
+  width: 0%;
+  height: 100%;
+  background: #4365ef;
+  box-shadow: 0 0 10px #4365ef;
+  animation: fillBar 2s ease-in-out forwards;
+}
