@@ -9,46 +9,54 @@ import Gallery from './components/Gallery';
 
 function App() {
   const [loading, setLoading] = useState(true);
+  const [percent, setPercent] = useState(false);
 
   useEffect(() => {
-    // This simulates the "Connecting..." phase
-    const timer = setTimeout(() => {
+    // Timer 1: Show "100%" right before finishing (at 2.2s)
+    const percentTimer = setTimeout(() => {
+      setPercent(true);
+    }, 2200);
+
+    // Timer 2: Finish loading (at 3s)
+    const finalTimer = setTimeout(() => {
       setLoading(false);
-    }, 2500); // 2.5 seconds of loading
-    return () => clearTimeout(timer);
+    }, 3000);
+
+    return () => {
+      clearTimeout(percentTimer);
+      clearTimeout(finalTimer);
+    };
   }, []);
 
- // --- 1. THE LOADING SCREEN ---
-if (loading) {
-  const loadingText = "Now Loading...";
-  
-  return (
-    <div className="ba-loader-screen">
-      <div className="loader-content">
-        {/* Floating Halo */}
-        <div className="ba-halo loader-halo"></div>
-        
-        {/* Letter-by-letter waving text */}
-        <h1 className="ba-loading-wave">
-          {loadingText.split("").map((char, index) => (
-            <span key={index} style={{ animationDelay: `${index * 0.1}s` }}>
-              {char === " " ? "\u00A0" : char}
-            </span>
-          ))}
-        </h1>
+  if (loading) {
+    const loadingText = "Now Loading...";
+    return (
+      <div className="ba-loader-screen">
+        <div className="loader-content">
+          <div className="ba-halo loader-halo"></div>
+          
+          <h1 className="ba-loading-wave">
+            {loadingText.split("").map((char, index) => (
+              <span key={index} style={{ animationDelay: `${index * 0.1}s` }}>
+                {char === " " ? "\u00A0" : char}
+              </span>
+            ))}
+          </h1>
 
-        <div className="loading-bar-container">
-          <div className="loading-bar-fill"></div>
+          <div className="loading-bar-wrapper">
+            <div className="loading-bar-container">
+              <div className="loading-bar-fill"></div>
+            </div>
+
+            <div className={`percent-text ${percent ? 'show' : ''}`}>100%</div>
+          </div>
         </div>
       </div>
-    </div>
-  );
-}
+    );
+  }
 
-  // --- 2. THE ACTUAL SITE (Fades in after loading) ---
   return (
     <div className="animate-fade-in">
-      {/* The Navbar stays at the top */}
       <Navbar />
 
       <div className="container">

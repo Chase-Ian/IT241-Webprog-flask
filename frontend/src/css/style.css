@@ -773,14 +773,66 @@ img {
   letter-spacing: 2px;
 }
 
-/* The loading bar under the text */
+/* The container for the bar */
 .loading-bar-container {
-  width: 200px;
-  height: 4px;
+  width: 250px; /* Made it a bit wider for better effect */
+  height: 6px;
   background: rgba(67, 101, 239, 0.1);
-  border-radius: 2px;
+  border-radius: 10px;
   overflow: hidden;
+  margin-top: 15px;
+  border: 1px solid rgba(67, 101, 239, 0.2);
 }
+
+/* The actual filling part */
+/* Wrapper to align bar and percentage */
+.loading-bar-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end; /* Aligns 100% to the right of the bar */
+  gap: 5px;
+}
+
+.loading-bar-container {
+  width: 280px;
+  height: 8px;
+  background: rgba(67, 101, 239, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(67, 101, 239, 0.3);
+}
+
+.loading-bar-fill {
+  width: 0%;
+  height: 100%;
+  background: #4365ef;
+  box-shadow: 0 0 12px rgba(67, 101, 239, 0.6);
+  /* Uses a "stepped" timing to look like a game loading assets */
+  animation: fillBar 2.2s cubic-bezier(0.65, 0.05, 0.36, 1) forwards;
+}
+
+.percent-text {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 8px;
+  color: #4365ef;
+  opacity: 0;
+  transform: translateY(5px);
+  transition: all 0.3s ease;
+}
+
+.percent-text.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+@keyframes fillBar {
+  0% { width: 0%; }
+  30% { width: 45%; }
+  70% { width: 85%; }
+  100% { width: 100%; }
+}
+
+
 
 /* --- Wave Text Animation --- */
 .ba-loading-wave {
@@ -839,10 +891,3 @@ img {
   z-index: 9999;
 }
 
-.loading-bar-fill {
-  width: 0%;
-  height: 100%;
-  background: #4365ef;
-  box-shadow: 0 0 10px #4365ef;
-  animation: fillBar 2s ease-in-out forwards;
-}
