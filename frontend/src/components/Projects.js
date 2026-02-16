@@ -4,9 +4,9 @@ const Projects = () => {
   const projectList = [
     {
         id: 1,
-        title: "Guestbook Application",
-        tech: "Flask | React | Supabase",
-        desc: "A full-stack application featuring real-time database integration.",
+        title: "Tracen Academy grading database system",
+        tech: "Vue | Supabase",
+        desc: "A full-stack application designed to manage student records and automate grading processes for a school, streamlining administrative tasks and improving efficiency.",
         icon: "📖",
         link: "https://github.com/Chase-Ian/College_gradingDB.git" // Replace with your link
     },
