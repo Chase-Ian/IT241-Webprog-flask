@@ -12,11 +12,11 @@ const Projects = () => {
     },
     {
         id: 2,
-        title: "Portfolio Website",
-        tech: "React | CSS Grid",
-        desc: "A personal profile designed with a minimalist pixel-art theme.",
-        icon: "🖥️",
-        link: "https://github.com/yourusername/portfolio" // Replace with your link
+        title: "ODIN",
+        tech: "GameMaker Studio 2",
+        desc: "A simple 2D top-down shooter game where players control a spaceship to defeat waves of enemies.",
+        icon: "👾",
+        link: "https://gamejolt.com/games/ODIN/639190" // Replace with your link
     }
 ];
 
