@@ -790,30 +790,59 @@ img {
   animation: fillBar 2s ease-in-out forwards;
 }
 
-/* --- Animations --- */
-@keyframes haloLoadSpin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
+/* --- Wave Text Animation --- */
+.ba-loading-wave {
+  font-family: 'Segoe UI', sans-serif; /* Using a cleaner sans-serif for the "Now Loading" look */
+  font-weight: 800;
+  font-style: italic;
+  font-size: 24px;
+  color: #4365ef;
+  display: flex;
+  gap: 2px;
 }
 
-@keyframes haloPulse {
-  from { opacity: 0.5; filter: blur(1px); }
-  to { opacity: 1; filter: blur(0px); }
+.ba-loading-wave span {
+  display: inline-block;
+  animation: waveJump 1.2s infinite ease-in-out;
 }
 
-@keyframes fillBar {
-  0% { width: 0%; }
-  30% { width: 40%; }
-  60% { width: 70%; }
-  100% { width: 100%; }
+@keyframes waveJump {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  25% {
+    transform: translateY(-10px); /* The "Up" part of the wave */
+  }
+  50% {
+    transform: translateY(0);
+  }
 }
 
-/* Smooth fade in for the main site */
-.animate-fade-in {
-  animation: fadeIn 0.8s ease-out;
+/* --- Floating (Non-Spinning) Halo --- */
+.loader-halo {
+  width: 140px !important;
+  height: 35px !important;
+  margin-bottom: 20px;
+  /* Removes rotation to let it just float gracefully */
+  animation: haloFloatOnly 3s infinite ease-in-out !important;
 }
 
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
+@keyframes haloFloatOnly {
+  0%, 100% {
+    transform: translateY(0) scale(1);
+    opacity: 0.7;
+  }
+  50% {
+    transform: translateY(-15px) scale(1.05); /* Floating up and slightly growing */
+    opacity: 1;
+  }
+}
+
+/* Background tweak to match your second image */
+.ba-loader-screen {
+  background: linear-gradient(135deg, #dae5ff 0%, #ffffff 100%);
+  position: fixed;
+  inset: 0;
+  display: flex;
+  z-index: 9999;
 }

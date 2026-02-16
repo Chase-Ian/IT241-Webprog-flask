@@ -18,20 +18,32 @@ function App() {
     return () => clearTimeout(timer);
   }, []);
 
-  // --- 1. THE LOADING SCREEN ---
-  if (loading) {
-    return (
-      <div className="ba-loader-screen">
-        <div className="loader-content">
-          <div className="ba-halo loader-halo"></div>
-          <h1 className="loading-text">CONNECTING...</h1>
-          <div className="loading-bar-container">
-            <div className="loading-bar-fill"></div>
-          </div>
+ // --- 1. THE LOADING SCREEN ---
+if (loading) {
+  const loadingText = "Now Loading...";
+  
+  return (
+    <div className="ba-loader-screen">
+      <div className="loader-content">
+        {/* Floating Halo */}
+        <div className="ba-halo loader-halo"></div>
+        
+        {/* Letter-by-letter waving text */}
+        <h1 className="ba-loading-wave">
+          {loadingText.split("").map((char, index) => (
+            <span key={index} style={{ animationDelay: `${index * 0.1}s` }}>
+              {char === " " ? "\u00A0" : char}
+            </span>
+          ))}
+        </h1>
+
+        <div className="loading-bar-container">
+          <div className="loading-bar-fill"></div>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
+}
 
   // --- 2. THE ACTUAL SITE (Fades in after loading) ---
   return (
