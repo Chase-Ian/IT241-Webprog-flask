@@ -44,9 +44,9 @@ const Gallery = () => {
     { id: 2, src: './images/gallery/imageGalleryImage2.jpg', alt: 'Safety by design seminar', desc: 'A learning experience in safety design principles.' },
     { 
         id: 3, 
-        src: './images/gallery/videoGallery3.mp4', 
+        src: 'pXuzY7HKASc', 
         thumbnail: './images/gallery/thumbnailVideoGallery3.png', // Static image for the grid
-        type: 'video', 
+        type: 'youtube', 
         alt: 'thingspeak demo video', 
         desc: 'DH11 temperature and humidity sensor demo with thingspeak.' 
     },
@@ -97,17 +97,20 @@ const Gallery = () => {
                 <button className="window-close" onClick={handleClose}>X</button>
             </div>
             
-            <div className="window-body">
-                {selectedImg.type === 'video' ? (
-                    <video 
-                    src={selectedImg.src} 
-                    className="modal-img" 
-                    autoPlay 
-                    loop 
-                    muted 
-                    controls 
-                    style={{ width: '100%', border: '4px solid #000' }}
-                    />
+           <div className="window-body">
+                {selectedImg.type === 'youtube' ? (
+                    <div className="video-responsive" style={{ width: '100%', aspectRatio: '16/9' }}>
+                    <iframe
+                        width="100%"
+                        height="100%"
+                        src={`https://www.youtube.com/embed/${selectedImg.src}?autoplay=1&rel=0&modestbranding=1`}
+                        title="YouTube video player"
+                        frameBorder="0"
+                        allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        allowFullScreen
+                        style={{ border: '4px solid #000' }}
+                    ></iframe>
+                    </div>
                 ) : (
                     <img 
                     src={selectedImg.id === 4 ? RYAN_EXPRESSIONS[expressionIndex] : selectedImg.src} 
