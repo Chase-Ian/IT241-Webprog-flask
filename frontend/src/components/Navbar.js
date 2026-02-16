@@ -4,7 +4,7 @@ const Navbar = () => {
   return (
     <nav className="navbar">
       <div className="nav-flex container">
-        <div className="logo">PLAYER_1</div>
+        <div className="logo">Personal Profile</div>
         <ul className="nav-links">
           <li><a href="#home">HOME</a></li>
           <li><a href="#education">EDU</a></li>
