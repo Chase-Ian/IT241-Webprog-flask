@@ -100,7 +100,7 @@ const Guestbook = () => {
       {/* ENTRIES SECTION */}
       {loading ? (
         <div className="card">
-          <p className="loading-text">☕ SYSTEM_BOOTING: Waking up server...</p>
+          <p className="loading-text">SYSTEM_BOOTING: Waking up server...</p>
         </div>
       ) : error ? (
         <p style={{ color: 'orange', fontFamily: "'Press Start 2P'", fontSize: '10px' }}>{error}</p>

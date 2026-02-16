@@ -40,15 +40,22 @@ const Gallery = () => {
     };
   
   const photos = [
-    { id: 1, src: 'https://picsum.photos/id/1/800/600', alt: 'Project Alpha', desc: 'A deep dive into backend architecture and database schema design.' },
-    { id: 2, src: 'https://picsum.photos/id/2/800/600', alt: 'UI Exploration', desc: 'Experimenting with minimalist aesthetics and user-centric navigation.' },
-    { id: 3, src: 'https://picsum.photos/id/3/800/600', alt: 'System Design', desc: 'Mapping out the flow between React components and Flask endpoints.' },
+    { id: 1, src: './images/gallery/imageGalleryImage1.jpg', alt: 'Con going hobby', desc: 'copslay matsuri in 2025' },
+    { id: 2, src: './images/gallery/imageGalleryImage2.jpg', alt: 'Safety by design seminar', desc: 'A learning experience in safety design principles.' },
+    { 
+        id: 3, 
+        src: './images/gallery/videoGallery3.mp4', 
+        thumbnail: './images/gallery/thumbnailVideoGallery3.png', // Static image for the grid
+        type: 'video', 
+        alt: 'thingspeak demo video', 
+        desc: 'DH11 temperature and humidity sensor demo with thingspeak.' 
+    },
     { 
       id: 4, 
       // FIXED PATH HERE
       src: './images/ryan_avatar/ryan_final_draft_neutral.png', 
-      alt: 'Original Drawing', 
-      desc: 'A hand-drawn character design. (Click the image to see a surprise!)',
+      alt: 'A draft character design for a subject', 
+      desc: 'A drawn draft of a character design from scratch.',
       isDrawing: true 
     },
   ];
@@ -58,15 +65,24 @@ const Gallery = () => {
       <h2>Gallery</h2>
       <div className="gallery-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(250px, 1fr))', gap: '15px' }}>
         {photos.map(photo => (
-        <div key={photo.id} className="card gallery-item" onClick={() => setSelectedImg(photo)}>
-            <div className="image-container">
-            <img src={photo.src} alt={photo.alt} />
+            <div key={photo.id} className="card gallery-item" onClick={() => setSelectedImg(photo)}>
+                <div className="image-container">
+                {/* If it's a video, use the thumbnail. If not, use the photo src */}
+                <img 
+                    src={photo.thumbnail || photo.src} 
+                    alt={photo.alt} 
+                />
+                
+                {/* Optional: Add a Play Icon overlay so users know it's a video */}
+                {photo.type === 'video' && (
+                    <div className="video-badge">▶</div>
+                )}
+                </div>
+                <div className="card-footer">
+                <p className="view-details-text">VIEW_DETAILS</p>
+                </div>
             </div>
-            <div className="card-footer">
-            <p className="view-details-text">VIEW_DETAILS</p>
-            </div>
-        </div>
-        ))}
+            ))}
       </div>
 
       {selectedImg && (
@@ -82,17 +98,30 @@ const Gallery = () => {
             </div>
             
             <div className="window-body">
-                <img 
-                src={selectedImg.id === 4 ? RYAN_EXPRESSIONS[expressionIndex] : selectedImg.src} 
-                alt={selectedImg.alt} 
-                className={`modal-img ${isFlipping ? 'pixel-flip' : ''}`}
-                onClick={handleImageClick}
-                />
+                {selectedImg.type === 'video' ? (
+                    <video 
+                    src={selectedImg.src} 
+                    className="modal-img" 
+                    autoPlay 
+                    loop 
+                    muted 
+                    controls 
+                    style={{ width: '100%', border: '4px solid #000' }}
+                    />
+                ) : (
+                    <img 
+                    src={selectedImg.id === 4 ? RYAN_EXPRESSIONS[expressionIndex] : selectedImg.src} 
+                    alt={selectedImg.alt} 
+                    className={`modal-img ${isFlipping ? 'pixel-flip' : ''}`}
+                    onClick={handleImageClick}
+                    />
+                )}
+
                 <div className="modal-text">
-                <h3>{selectedImg.alt}</h3>
-                <p>{selectedImg.desc}</p>
+                    <h3>{selectedImg.alt}</h3>
+                    <p>{selectedImg.desc}</p>
                 </div>
-            </div>
+                </div>
             </div>
         </div>
         )}
