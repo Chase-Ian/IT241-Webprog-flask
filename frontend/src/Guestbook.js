@@ -3,6 +3,7 @@ import axios from 'axios';
 
 // Replace this with your actual Render URL
 const API_URL = process.env.REACT_APP_API_URL;
+const ADMIN_KEY = process.env.REACT_APP_ADMIN_SECRET_KEY;
 
 const Guestbook = () => {
   const [entries, setEntries] = useState([]);
@@ -50,15 +51,19 @@ const Guestbook = () => {
 
   // 4. DELETE: Remove an entry
   const handleDelete = async (id) => {
-    if (window.confirm("Are you sure?")) {
-      try {
-        await axios.delete(`${API_URL}/${id}`);
-        fetchEntries();
-      } catch (err) {
-        alert("Failed to delete.");
-      }
+  if (window.confirm("Are you sure?")) {
+    try {
+      await axios.delete(`${API_URL}/${id}`, {
+        headers: {
+          "X-Admin-Key": ADMIN_KEY // Sending the secret handshake
+        }
+      });
+      fetchEntries();
+    } catch (err) {
+      alert("Unauthorized: You don't have permission to delete this.");
     }
-  };
+  }
+};
 
   const startEdit = (entry) => {
     setEditingId(entry.id);

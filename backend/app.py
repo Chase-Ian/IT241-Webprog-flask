@@ -9,6 +9,7 @@ CORS(app) # Crucial for allowing Vercel to talk to Render
 url = os.environ.get("SUPABASE_URL")
 key = os.environ.get("SUPABASE_KEY")
 supabase: Client = create_client(url, key)
+ADMIN_KEY = os.environ.get("ADMIN_SECRET_KEY")
 
 @app.route('/guestbook', methods=['GET'])
 def get_entries():
@@ -29,6 +30,12 @@ def update_entry(id):
 
 @app.route('/guestbook/<id>', methods=['DELETE'])
 def delete_entry(id):
+    # Check the "X-Admin-Key" header
+    user_key = request.headers.get("X-Admin-Key")
+    
+    if user_key != ADMIN_KEY:
+        return jsonify({"error": "Unauthorized"}), 403
+
     supabase.table("guestbook").delete().eq("id", id).execute()
     return jsonify({"message": "Deleted successfully"}), 200
 
