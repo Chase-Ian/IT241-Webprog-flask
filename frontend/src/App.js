@@ -1,24 +1,35 @@
 import React from 'react';
-import Guestbook from './Guestbook';
+import './css/style.css'; // Always keep CSS imports
+import Guestbook from './Guestbook'; // This is the neighbor in src/
+import Navbar from './components/Navbar';
+import Home from './components/Home';
+import Education from './components/Education';
+import Projects from './components/Projects';
+import Gallery from './components/Gallery';
 
 function App() {
   return (
-    <div style={{ fontFamily: 'Arial, sans-serif', padding: '20px', lineHeight: '1.6' }}>
-      <header style={{ textAlign: 'center', marginBottom: '40px' }}>
-        <h1>My Personal Profile</h1>
-        <p>Welcome to my corner of the internet!</p>
-      </header>
-      
-      <main>
-        <section style={{ marginBottom: '40px' }}>
-          <h2>About Me</h2>
-          <p>Hi! I'm a developer building cool things with Flask and React.</p>
-        </section>
+    <div>
+      {/* 1. The Navbar stays at the top */}
+      <Navbar />
 
-        <section>
+      <div className="container">
+        {/* 2. All your components go here in order */}
+        <Home />
+        <Education />
+        <Projects />
+        <Gallery />
+        
+        {/* 3. The Guestbook goes at the bottom */}
+        <hr />
+        <section id="guestbook">
           <Guestbook />
         </section>
-      </main>
+      </div>
+
+      <footer style={{ textAlign: 'center', padding: '20px', marginTop: '40px' }}>
+        <p>© 2026 My Personal Profile</p>
+      </footer>
     </div>
   );
 }

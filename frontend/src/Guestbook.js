@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
 
-// Replace this with your actual Render URL
 const API_URL = process.env.REACT_APP_API_URL;
 const ADMIN_KEY = process.env.REACT_APP_ADMIN_SECRET_KEY;
 
@@ -12,7 +11,6 @@ const Guestbook = () => {
   const [error, setError] = useState(null);
   const [editingId, setEditingId] = useState(null);
 
-  // 1. GET: Fetch all entries
   const fetchEntries = async () => {
     try {
       setLoading(true);
@@ -31,12 +29,10 @@ const Guestbook = () => {
     fetchEntries();
   }, []);
 
-  // 2. POST: Add a new entry
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
       if (editingId) {
-        // 3. PUT: Update existing entry
         await axios.put(`${API_URL}/${editingId}`, formData);
         setEditingId(null);
       } else {
@@ -49,21 +45,18 @@ const Guestbook = () => {
     }
   };
 
-  // 4. DELETE: Remove an entry
   const handleDelete = async (id) => {
-  if (window.confirm("Are you sure?")) {
-    try {
-      await axios.delete(`${API_URL}/${id}`, {
-        headers: {
-          "X-Admin-Key": ADMIN_KEY // Sending the secret handshake
-        }
-      });
-      fetchEntries();
-    } catch (err) {
-      alert("Unauthorized: You don't have permission to delete this.");
+    if (window.confirm("Are you sure?")) {
+      try {
+        await axios.delete(`${API_URL}/${id}`, {
+          headers: { "X-Admin-Key": ADMIN_KEY }
+        });
+        fetchEntries();
+      } catch (err) {
+        alert("Unauthorized: You don't have permission to delete this.");
+      }
     }
-  }
-};
+  };
 
   const startEdit = (entry) => {
     setEditingId(entry.id);
@@ -71,56 +64,69 @@ const Guestbook = () => {
   };
 
   return (
-    <div style={{ maxWidth: '600px', margin: '0 auto', padding: '20px' }}>
+    <section id="guestbook">
       <h2>Guestbook</h2>
       
-      {/* Form Section */}
+      {/* FORM SECTION */}
       <form onSubmit={handleSubmit} style={{ marginBottom: '30px' }}>
         <input 
           type="text" 
-          placeholder="Your Name" 
+          placeholder="> YOUR_NAME" // Thematic Placeholder
+          className="pixel-input"
           value={formData.name}
           onChange={(e) => setFormData({...formData, name: e.target.value})}
           required
-          style={{ display: 'block', width: '100%', marginBottom: '10px' }}
         />
         <textarea 
-          placeholder="Leave a message..." 
+          placeholder="> LEAVE_A_MESSAGE..." // Thematic Placeholder
           value={formData.message}
+          className="pixel-input"
           onChange={(e) => setFormData({...formData, message: e.target.value})}
           required
-          style={{ display: 'block', width: '100%', marginBottom: '10px' }}
+          style={{ height: '100px' }}
         />
-        <button type="submit">
-          {editingId ? "Update Entry" : "Sign Guestbook"}
+        <button type="submit" className="post-btn">
+          {editingId ? "UPDATE_LOG" : "SIGN_GUESTBOOK"}
         </button>
-        {editingId && <button onClick={() => setEditingId(null)}>Cancel</button>}
+        {editingId && (
+          <button onClick={() => setEditingId(null)} className="post-btn" style={{ backgroundColor: '#666', marginTop: '10px' }}>
+            CANCEL
+          </button>
+        )}
       </form>
 
       <hr />
 
-      {/* Logic to handle Render's "Cold Start" */}
+      {/* ENTRIES SECTION */}
       {loading ? (
-        <div className="loader">
-          <p>☕ Waking up the server... This may take 30 seconds on the first load.</p>
-          {/* You can add a CSS spinner here */}
+        <div className="card">
+          <p className="loading-text">☕ SYSTEM_BOOTING: Waking up server...</p>
         </div>
       ) : error ? (
-        <p style={{ color: 'orange' }}>{error}</p>
+        <p style={{ color: 'orange', fontFamily: "'Press Start 2P'", fontSize: '10px' }}>{error}</p>
       ) : (
         <div className="entries">
-          {entries.length === 0 && <p>No entries yet. Be the first!</p>}
+          {entries.length === 0 && <p>No entries yet. Be the first to log!</p>}
           {entries.map((entry) => (
-            <div key={entry.id} style={{ borderBottom: '1px solid #ddd', padding: '10px 0' }}>
-              <strong>{entry.name}</strong>
-              <p>{entry.message}</p>
-              <button onClick={() => startEdit(entry)}>Edit</button>
-              <button onClick={() => handleDelete(entry.id)} style={{ color: 'red' }}>Delete</button>
+            <div key={entry.id} className="entry-card">
+              <div className="entry-header">
+                {/* We apply the entry-user class here for the pixel font */}
+                <span className="entry-user">{entry.name}</span>
+              </div>
+              <div className="entry-body">
+                <p className="entry-text">{entry.message}</p>
+              </div>
+              
+              {/* Admin Actions */}
+              <div className="entry-actions">
+                <button onClick={() => startEdit(entry)} className="admin-btn">EDIT</button>
+                <button onClick={() => handleDelete(entry.id)} className="admin-btn delete">DELETE</button>
+              </div>
             </div>
           ))}
         </div>
       )}
-    </div>
+    </section>
   );
 };
 

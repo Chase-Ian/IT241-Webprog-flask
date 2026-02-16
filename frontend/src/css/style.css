@@ -1,0 +1,249 @@
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 100px; /* This prevents the navbar from covering your titles */
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f4f4f9;
+}
+
+section {
+  padding: 40px 0;
+}
+
+button {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  cursor: pointer;
+  image-rendering: pixelated; /* Ensures crisp edges */
+}
+
+.post-btn {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  background-color: #000;
+  color: #fff;
+  border: none;
+  padding: 12px 24px;
+  cursor: pointer;
+  width: 100%; /* Makes it a big blocky button */
+  transition: background 0.2s;
+}
+
+.post-btn:hover {
+  background-color: #007bff;
+  box-shadow: 4px 4px 0px #0056b3;
+}
+
+button:hover {
+  background-color: #007bff; /* A splash of color for the "Modern" feel */
+}
+
+/* Use the pixel font for headings and nav */
+h1, h2, .nav-links a {
+  font-family: 'Press Start 2P', cursive;
+  text-transform: uppercase;
+}
+
+.navbar {
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  border-bottom: 4px solid #000; /* Thick "Pixel" border */
+  padding: 1rem 2rem;
+  z-index: 1000;
+}
+
+.nav-flex {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.nav-links {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-links a {
+  text-decoration: none;
+  color: #000;
+  font-size: 10px; /* Pixel fonts look better small */
+  transition: all 0.2s;
+  padding: 5px 10px;
+}
+
+/* Retro Hover Effect */
+.nav-links a:hover {
+  background-color: #000;
+  color: #fff;
+  box-shadow: 4px 4px 0px #888; /* Blocky shadow */
+}
+
+/* Responsive Navbar for Mobile */
+@media (max-width: 768px) {
+  .nav-flex {
+    flex-direction: column;
+    gap: 15px;
+  }
+}
+
+/* Basic Responsiveness */
+.container {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* On screens smaller than 768px (Tablets/Phones) */
+@media (max-width: 768px) {
+  .nav-menu {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .project-grid {
+    grid-template-columns: 1fr; 
+  }
+}
+
+
+/* --- Static Cards (Home, Education, Projects) --- */
+.card {
+  background: white;
+  border: 4px solid #000; 
+  padding: 20px;
+  box-shadow: 8px 8px 0px #ccc; /* Keeps the pixel look without moving */
+  margin-bottom: 20px;
+  /* transition removed as it's no longer needed for movement */
+}
+
+/* REMOVED: .card:hover { transform: translate(-2px, -2px); ... } */
+
+/* --- Gallery Cards (Keeping hover here because they are visual/interactive) --- */
+.gallery-grid .card {
+  transition: transform 0.2s; /* Optional: keep a small pop for the gallery only */
+}
+
+.gallery-grid .card:hover {
+  transform: scale(1.02); /* Slight zoom instead of a shadow jump */
+}
+
+.gallery-grid .card img {
+  filter: grayscale(100%); 
+  transition: filter 0.3s ease;
+}
+
+.gallery-grid .card:hover img {
+  filter: grayscale(0%); 
+}
+
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+
+.pixel-input {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 15px;
+  border: 4px solid #000; 
+  background-color: #fff;
+  font-family: 'Segoe UI', sans-serif; 
+  font-size: 14px;
+  outline: none;
+  transition: all 0.2s;
+}
+
+
+.pixel-input:focus {
+  border-color: #007bff; 
+  box-shadow: 4px 4px 0px rgba(0, 123, 255, 0.2);
+}
+
+
+.pixel-input::placeholder {
+  font-family: 'Press Start 2P', cursive; 
+  font-size: 8px; 
+  color: #aaa;
+}
+
+.admin-btn {
+  background-color: #000;
+  font-family: 'Press Start 2P', cursive;
+  font-size: 8px;
+  padding: 4px 8px;
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.admin-btn:hover {
+  background: #4365ef;
+  color: #fff;
+}
+
+.admin-btn.delete:hover {
+  background: #ff4d4d;
+  border-color: #ff4d4d;
+}
+
+.loading-text {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  animation: blink 1s infinite;
+}
+
+@keyframes blink {
+  50% { opacity: 0; }
+}
+
+
+.entry-card {
+  background: #fff;
+  border: 4px solid #000; 
+  padding: 15px;
+  margin-bottom: 20px;
+  box-shadow: 4px 4px 0px #ccc; 
+}
+
+
+.entry-user {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 10px;
+  color: #007bff;
+  display: block;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+}
+
+
+.entry-text {
+  font-family: 'Segoe UI', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  color: #333;
+}
+
+.entry-actions {
+  margin-top: 15px;
+  display: flex;
+  gap: 10px;
+  border-top: 2px dashed #eee; /* Decorative separator */
+  padding-top: 10px;
+}
