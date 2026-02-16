@@ -465,10 +465,9 @@ img {
 
 .achievement-title {
   color: #ebebeb;
-  font-size: 14px;
+  font-size: 12px;
   margin: 0;
   font-family: 'Press Start 2P', cursive;
-  font-size: 8px; /* Small pixel font for titles */
 }
 
 .achievement-desc {
@@ -486,5 +485,32 @@ img {
 }
 
 .certification-header {
-  color: #ffffff; /* Steam light blue */
+  color: #ffffff;
+}
+
+/* Special glow for Projects (Gold/Rare) */
+.project-rarity {
+  background: #ffcc00 !important;
+  box-shadow: 0 0 10px #ffcc00 !important;
+}
+
+/* Ensure project rows align items to the top for longer descriptions */
+.project-item {
+  align-items: flex-start !important;
+  height: 100%; /* Keeps boxes even in a grid */
+  border: 1px solid #2a475e;
+}
+
+.project-item:hover {
+  border-color: #ffcc00 !important;
+}
+
+/* Make icons in projects slightly larger */
+.project-item .achievement-icon-box {
+  background: #1b2838;
+  border-color: #ffcc00;
+}
+
+.project-header{
+  color: #ffffff;
 }

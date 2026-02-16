@@ -3,32 +3,71 @@ import React from 'react';
 const Projects = () => {
   const projectList = [
     {
-      id: 1,
-      title: "Guestbook Application",
-      tech: "Flask | React | Supabase",
-      desc: "A full-stack application featuring real-time database integration and a responsive user interface."
+        id: 1,
+        title: "Guestbook Application",
+        tech: "Flask | React | Supabase",
+        desc: "A full-stack application featuring real-time database integration.",
+        icon: "📖",
+        link: "https://github.com/Chase-Ian/College_gradingDB.git" // Replace with your link
     },
     {
-      id: 2,
-      title: "Portfolio Website",
-      tech: "React | CSS Grid",
-      desc: "A personal profile designed with a minimalist pixel-art theme, focused on mobile responsiveness and clean code."
+        id: 2,
+        title: "Portfolio Website",
+        tech: "React | CSS Grid",
+        desc: "A personal profile designed with a minimalist pixel-art theme.",
+        icon: "🖥️",
+        link: "https://github.com/yourusername/portfolio" // Replace with your link
     }
-  ];
+];
 
   return (
     <section id="projects">
-      <h2>Projects</h2>
-      <div className="project-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '20px' }}>
-        {projectList.map(project => (
-          <div key={project.id} className="card">
-            <h3 style={{ fontSize: '14px', marginBottom: '5px' }}>{project.title}</h3>
-            <p style={{ fontSize: '10px', color: '#007bff', marginBottom: '10px', fontFamily: "'Press Start 2P'" }}>
-              {project.tech}
-            </p>
-            <p style={{ fontSize: '14px', lineHeight: '1.4' }}>{project.desc}</p>
-          </div>
-        ))}
+      {/* Reusing the achievement-panel look for the whole section */}
+      <div className="card achievement-panel">
+        <div className="achievement-header">
+          <h2 className='project-header'>PROJECTS</h2>
+          <span className="achievement-count">{projectList.length} COMPLETED</span>
+        </div>
+
+        <div className="project-grid" style={{ 
+          display: 'grid', 
+          gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', 
+          gap: '15px' 
+        }}>
+          {projectList.map(project => (
+            <a 
+                key={project.id} 
+                href={project.link} 
+                target="_blank" 
+                rel="noreferrer" 
+                className="project-link-wrapper"
+                style={{ textDecoration: 'none' }}
+                >
+                <div className="achievement-row project-item">
+                    <div className="achievement-icon-box">
+                    <span className="achievement-icon">{project.icon}</span>
+                    </div>
+                    
+                    <div className="achievement-text">
+                    <h3 className="achievement-title" style={{ color: '#66c0f4' }}>
+                        {project.title}
+                    </h3>
+                    <p style={{ 
+                        fontSize: '8px', 
+                        color: '#fff', 
+                        margin: '5px 0', 
+                        fontFamily: "'Press Start 2P'" 
+                    }}>
+                        {project.tech}
+                    </p>
+                    <p className="achievement-desc">{project.desc}</p>
+                    </div>
+
+                    <div className="status-pixel project-rarity"></div>
+                </div>
+                </a>
+          ))}
+        </div>
       </div>
     </section>
   );
