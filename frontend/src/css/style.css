@@ -21,6 +21,50 @@ body {
   color: #333;
   background-color: #f4f4f9;
   padding-top: 80px;
+  /* Soft blue gradient base */
+  background: linear-gradient(135deg, #f4f7ff 0%, #e2e9ff 100%) !important;
+  overflow-x: hidden;
+}
+
+/* Faint grid lines overlay */
+.ui-grid-lines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background-image: 
+    linear-gradient(rgba(67, 101, 239, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(67, 101, 239, 0.05) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  z-index: -1;
+}
+
+/* Large slanted light-blue shape at the top-right */
+.ui-shape-1 {
+  position: fixed;
+  top: -10%;
+  right: -5%;
+  width: 60%;
+  height: 40%;
+  background: rgba(67, 101, 239, 0.03);
+  transform: skewX(-20deg);
+  pointer-events: none;
+  z-index: -2;
+}
+
+/* Smaller accent shape at the bottom-left */
+.ui-shape-2 {
+  position: fixed;
+  bottom: -5%;
+  left: -10%;
+  width: 40%;
+  height: 30%;
+  background: rgba(67, 101, 239, 0.03);
+  transform: skewX(-20deg);
+  pointer-events: none;
+  z-index: -2;
 }
 
 section {
@@ -554,4 +598,141 @@ img {
 
 .project-header{
   color: #ffffff;
+}
+
+/* --- Logo & Rank Grouping --- */
+.logo-group {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.logo {
+  font-family: 'Press Start 2P', cursive;
+  font-size: 14px;
+  letter-spacing: -1px;
+  color: #333;
+}
+
+.rank-badge {
+  display: flex;
+  flex-direction: column;
+  background: #4365ef;
+  color: #fff;
+  padding: 2px 6px;
+  border-radius: 4px;
+  line-height: 1;
+}
+
+.rank-label {
+  font-size: 6px;
+  font-family: 'Press Start 2P', cursive;
+}
+
+.rank-num {
+  font-size: 10px;
+  font-weight: bold;
+  font-family: 'Segoe UI', sans-serif;
+  text-align: center;
+}
+
+/* --- Navbar Background Shape --- */
+/* This makes the navbar look slightly skewed/geometric on one side */
+.archive-nav::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 250px;
+  height: 100%;
+  background: rgba(67, 101, 239, 0.05);
+  transform: skewX(-20deg) translateX(-50px);
+  z-index: -1;
+}
+
+/* --- Blue Archive Halo --- */
+.profile-container {
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 0;
+}
+
+.ba-halo {
+  position: absolute;
+  top: 10px; /* Adjust to sit right above/behind the head */
+  width: 120px;
+  height: 25px;
+  border: 3px solid rgba(67, 101, 239, 0.6); /* Signature Blue */
+  border-radius: 50%;
+  box-shadow: 0 0 15px rgba(67, 101, 239, 0.5), 
+              inset 0 0 10px rgba(67, 101, 239, 0.3);
+  z-index: -1; /* Sits behind the image */
+  animation: haloFloat 4s ease-in-out infinite;
+}
+
+/* Optional: Add a small "cross" or notch to the halo for more detail */
+.ba-halo::before {
+  content: '';
+  position: absolute;
+  top: -5px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 15px;
+  height: 3px;
+  background: #4365ef;
+  box-shadow: 0 0 8px #4365ef;
+}
+
+/* Floating Animation */
+@keyframes haloFloat {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 0.8;
+  }
+  50% {
+    transform: translateY(-10px) rotate(2deg);
+    opacity: 1;
+  }
+}
+
+/* Ensure your avatar stays on top and crisp */
+.profile-container .image-container {
+  z-index: 1;
+  background: transparent; /* Makes the halo visible behind it */
+}
+
+/* Container to hold halo and text together */
+.logo-wrapper {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Specific scale for the halo inside the navbar */
+.nav-halo {
+  width: 100px !important; /* Smaller for the nav */
+  height: 20px !important;
+  top: -10px !important; /* Position it slightly above the text */
+  opacity: 0.6;
+  filter: blur(0.5px);
+}
+
+/* Logo styling to ensure it's readable over the halo */
+.logo {
+  position: relative;
+  z-index: 2; /* Sits in front of the halo */
+  font-family: 'Press Start 2P', cursive;
+  font-size: 12px;
+  color: #000;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 1); /* Makes text pop over glow */
+}
+
+/* Ensure Logo Group doesn't get squished */
+.logo-group {
+  display: flex;
+  align-items: center;
+  gap: 20px;
 }

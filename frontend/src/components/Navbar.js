@@ -4,8 +4,20 @@ const Navbar = () => {
   return (
     <nav className="navbar archive-nav">
       <div className="nav-flex container">
-        <div className="logo">Personal Profile</div>
+        {/* Left Side: Logo + Rank info */}
+        <div className="logo-group">
+          <div className="logo-wrapper">
+            <div className="ba-halo nav-halo"></div> {/* Added nav-halo class */}
+            <div className="logo">Personal Profile</div>
+          </div>
+          
+          <div className="rank-badge">
+            <span className="rank-label">AGE</span>
+            <span className="rank-num">20</span>
+          </div>
+        </div>
         
+        {/* Right Side: Icons and Text */}
         <ul className="nav-links">
           <li><a href="#home"><span className="nav-icon">🏠</span>HOME</a></li>
           <li><a href="#education"><span className="nav-icon">🎓</span>EDU</a></li>
