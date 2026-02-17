@@ -33,7 +33,7 @@ const Home = () => {
 
       <div className="card achievement-panel">
         <div className="achievement-header">
-          <h2 className='certification-header'>CERTIFICATIONS</h2>
+          <h2 className='certification-header'>CERTIFICATES</h2>
           <span className="achievement-count">{certifications.length} / {certifications.length}</span>
         </div>
         
